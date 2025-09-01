@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfólio | Studio Jusa</title>
+    <meta name="description" content="Portfólio profissional de design gráfico, web design, branding e UX/UI" />
+    <meta name="author" content="Studio Jusa" />
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="icon" type="image/png" href="images/logo_jusadesigner_principal.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+     
+    <!-- Modal Gallery -->
+    <div id="gallery-modal" class="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm hidden">
+      <div class="relative bg-white rounded-lg shadow-lg max-w-4xl w-full mx-2 md:mx-8 p-4 md:p-8 flex flex-col items-center">
+        <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-gray-400 hover:text-purple-main text-3xl font-bold" aria-label="Fechar">&times;</button>
+        <div class="mb-6 w-full flex flex-col items-center">
+          <span id="gallery-modal-title" class="text-2xl font-semibold text-purple-main font-poppins mb-2"></span>
+          <span id="gallery-modal-count" class="text-base text-gray-500 font-poppins"></span>
+        </div>
+        <div class="w-full flex flex-row items-center justify-center min-h-[300px] gap-4 md:gap-24">
+          <button onclick="prevGalleryImage()" class="bg-white/80 hover:bg-purple-main/20 text-purple-main rounded-full p-3 shadow transition disabled:opacity-50 z-10 mx-2 md:mr-24 focus:outline-none focus:ring-2 focus:ring-purple-main" aria-label="Anterior">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <div id="gallery-modal-imgs" class="flex gap-4 md:gap-8 justify-center items-center w-full max-w-5xl">
+            <!-- Imagens do carrossel -->
+          </div>
+          <button onclick="nextGalleryImage()" class="bg-white/80 hover:bg-purple-main/20 text-purple-main rounded-full p-3 shadow transition disabled:opacity-50 z-10 mx-2 md:ml-24 focus:outline-none focus:ring-2 focus:ring-purple-main" aria-label="Próximo">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'poppins': ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              'lilac-light': '#d9d4e7',
+              'purple-main': '#7b5ea2',
+              'lilac-bg': '#f8f6fb',
+              'purple-dark': '#5d4577',
+            },
+            keyframes: {
+              'float': {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-10px)' }
+              },
+              'slide-left-in': {
+                '0%': { opacity: '0', transform: 'translateX(-60px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' }
+              },
+              'slide-left-out': {
+                '0%': { opacity: '1', transform: 'translateX(0)' },
+                '100%': { opacity: '0', transform: 'translateX(60px)' }
+              },
+              'slide-right-in': {
+                '0%': { opacity: '0', transform: 'translateX(60px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' }
+              },
+              'slide-right-out': {
+                '0%': { opacity: '1', transform: 'translateX(0)' },
+                '100%': { opacity: '0', transform: 'translateX(-60px)' }
+              }
+            },
+            animation: {
+              'float': 'float 3s ease-in-out infinite',
+              'slide-left-in': 'slide-left-in 0.35s cubic-bezier(0.4,0,0.2,1)',
+              'slide-left-out': 'slide-left-out 0.35s cubic-bezier(0.4,0,0.2,1)',
+              'slide-right-in': 'slide-right-in 0.35s cubic-bezier(0.4,0,0.2,1)',
+              'slide-right-out': 'slide-right-out 0.35s cubic-bezier(0.4,0,0.2,1)'
+            }
+          }
+        }
+      }
+    </script>
+
+    <meta property="og:title" content="Portfólio Criativo | Studio Jusa" />
+    <meta property="og:description" content="Portfólio profissional de design gráfico, web design, branding e UX/UI" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+
+  <body class="min-h-screen bg-lilac-bg font-poppins">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-sm border-b border-lilac-light/30 sticky top-0 z-50">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img 
+                src="images/logo_jusadesigner_simples.png" 
+                alt="Studio Jusa Logo" 
+                class="w-full h-full object-contain"
+              />
+            </div>
+            <h1 class="text-xl font-semibold text-gray-800 font-poppins">Studio Jusa</h1>
+          </div>
+          
+          <a 
+            href="https://www.behance.net/studiojusa" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="flex items-center space-x-2 bg-purple-main hover:bg-purple-dark text-white px-4 py-2 rounded-lg transition-colors duration-300 font-poppins"
+          >
+            <span>Ver no Behance</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section & Tags -->
+
+    <section class="bg-gradient-to-br from-lilac-bg via-white to-lilac-light/20 py-20">
+      <div class="container mx-auto px-6 text-center">
+        <div class="animate-fade-in">
+          <h1 class="text-5xl md:text-6xl font-bold text-gray-800 mb-6 font-poppins">
+            Portfólio <span class="text-purple-main">Studio Jusa</span>
+          </h1>
+          <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-poppins font-light leading-relaxed">
+            Crio soluções visuais que conectam marcas às pessoas, unindo estética, estratégia e propósito em cada projeto.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4 text-sm text-purple-main font-poppins font-medium">
+            <span class="bg-white/60 px-4 py-2 rounded-full border-2 border-purple-main">Design Gráfico</span>
+            <span class="bg-white/60 px-4 py-2 rounded-full border-2 border-purple-main">Web Design</span>
+            <span class="bg-white/60 px-4 py-2 rounded-full border-2 border-purple-main">Identidade Visual</span>
+            <span class="bg-white/60 px-4 py-2 rounded-full border-2 border-purple-main">Branding</span>
+            <span class="bg-white/60 px-4 py-2 rounded-full border-2 border-purple-main">UX/UI</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4 font-poppins">
+            Serviços <span class="text-purple-main">Especializados</span>
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto font-poppins font-light">
+            Soluções completas de design para transformar sua visão em realidade.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
+          <!-- Services will be populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+
+    <section class="py-20 bg-gradient-to-br from-lilac-bg to-lilac-light/30">
+      <div class="container mx-auto px-6">
+        <div class="bg-white/80 backdrop-blur-sm border border-lilac-light/50 max-w-4xl mx-auto rounded-lg shadow-lg">
+          <div class="p-12 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 font-poppins">
+              Vamos Criar Algo <span class="text-purple-main">Incrível</span> Juntos?
+            </h2>
+            
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto font-poppins font-light">
+              Entre em contato e vamos discutir seu próximo projeto.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a 
+                href="https://www.behance.net/studiojusa" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="flex items-center space-x-2 bg-purple-main hover:bg-purple-dark text-white px-8 py-3 rounded-lg transition-colors duration-300 font-poppins font-medium"
+              >
+                <span>Ver Portfólio Completo</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+              
+              <a 
+                href="mailto:contato@studiojusa.com"
+                class="flex items-center space-x-2 border-2 border-purple-main text-purple-main hover:bg-purple-main hover:text-white px-8 py-3 rounded-lg transition-colors duration-300 font-poppins font-medium"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                <span>Entrar em Contato</span>
+              </a>
+            </div>
+            
+            <div class="mt-8 flex justify-center">
+              <div class="flex items-center space-x-2 text-gray-500 font-poppins text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+                <span>Resposta garantida em 24h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center space-x-2 mb-4 md:mb-0">
+            <div class="w-8 h-8 flex items-center justify-center">
+              <img 
+                src="/images/logo_jusadesigner_simples.png" 
+                alt="Studio Jusa Logo" 
+                class="w-full h-full object-contain filter brightness-0 invert"
+              />
+            </div>
+            <span class="text-lg font-semibold font-poppins">Studio Jusa</span>
+          </div>
+          
+          <div class="text-center md:text-right">
+            <p class="text-gray-400 font-poppins text-sm mb-2">
+              Transformando ideias em experiências visuais
+            </p>
+            <p class="text-gray-500 font-poppins text-xs">
+              © 2025 Todos os direitos reservados
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+<!-- Modal Portfólio Script -->
+
+    <script>
+      const services = [
+        {
+          title: "Posts para Redes Sociais",
+          icon: `<svg class="w-8 h-8 text-purple-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/>
+                  <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>`,
+          description: "Criação de conteúdo visual atrativo para Instagram, Facebook e outras plataformas sociais.",
+          images: [
+            "images/post/post4.png",
+            "images/post/post2.png",
+            "images/post/post3.png",
+            "images/post/post14.png",
+            "images/post/post5.png",
+            "images/post/post6.png",
+            "images/post/post10.png",
+            "images/post/post8.png",
+            "images/post/post9.png",
+            "images/post/post7.png",
+            "images/post/post11.png",
+            "images/post/post12.png",
+            "images/post/post1.png",
+            "images/post/post15.png",
+            "images/post/post16.png",
+            "images/post/post17.png",
+            "images/post/post18.png",
+            "images/post/post19.png",
+            "images/post/post20.png",
+            "images/post/post21.png",
+            "images/post/post22.png"
+          ]
+        },
+        {
+          title: "Web Design",
+          icon: `<svg class="w-8 h-8 text-purple-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/>
+                  <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>`,
+          description: "Desenvolvimento de sites modernos, responsivos e otimizados para conversão.",
+          images: [
+            "images/site/site01.png",
+            "images/site/site02.png",
+            "images/site/site03.png"
+          ]
+        },
+        {
+          title: "Identidade Visual & Branding",
+          icon: `<svg class="w-8 h-8 text-purple-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="13.5" cy="6.5" r=".5"/>
+                  <circle cx="17.5" cy="10.5" r=".5"/>
+                  <circle cx="8.5" cy="7.5" r=".5"/>
+                  <circle cx="6.5" cy="12.5" r=".5"/>
+                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+                </svg>`,
+          description: "Criação de marcas únicas com logos, paletas de cores e elementos visuais consistentes.",
+          images: [
+            "images/idvisual/idvisual01.png",
+            "images/idvisual/idvisual02.png",
+            "images/idvisual/idvisual03.png",
+            "images/idvisual/idvisual04.png",
+            "images/idvisual/idvisual05.png",
+            "images/idvisual/idvisual06.png",
+            "images/idvisual/idvisual07.png",
+            "images/idvisual/idvisual08.png"
+         ]
+        },
+        {
+          title: "UX/UI Design",
+          icon: `<svg class="w-8 h-8 text-purple-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m10 9 5 3-5 3z"/>
+                </svg>`,
+          description: "Design de interfaces digitais focadas na experiência do usuário e usabilidade.",
+          images: [
+            "images/interfaces/interface01.png",
+            "images/interfaces/interface02.png",
+            "images/interfaces/interface03.png",
+            "images/interfaces/interface04.png"
+          ]
+        },
+        {
+          title: "E-mail Marketing",
+          icon: `<svg class="w-8 h-8 text-purple-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>`,
+          description: "Templates e campanhas de e-mail marketing visualmente impactantes e eficazes.",
+          images: [
+            "images/email/email01.png",
+            "images/email/email02.png",
+            "images/email/email03.png",
+            "images/email/email04.png",
+            "images/email/email05.png",
+            "images/email/email06.png",
+            "images/email/email07.png",
+            "images/email/email08.png",
+            "images/email/email09.png",
+            "images/email/email10.png",
+            "images/email/email11.png",
+            "images/email/email12.png",
+            "images/email/email13.png",
+            "images/email/email14.png",
+            "images/email/email15.png"
+          ]
+        },
+        {
+          title: "Diagramação",
+          icon: `<svg class="w-8 h-8 text-purple-main" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14,2 14,8 20,8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                  <polyline points="10,9 9,9 8,9"/>
+                </svg>`,
+          description: "Layout editorial para revistas, livros, catálogos, e-books e materiais impressos.",
+          images: [
+            "images/ebook/ebook01.png",
+            "images/ebook/ebook02.png",
+            "images/ebook/ebook03.png",
+            "images/ebook/ebook04.png",
+            "images/ebook/ebook05.png",
+            "images/ebook/ebook06.png"
+          ]
+        }
+      ];
+
+      // Function to create service cards
+      function createServiceCard(service, index) {
+        // Mostra as 4 primeiras imagens como miniaturas
+        const thumbs = service.images.slice(0, 4).map((img, i) => `
+          <div class="aspect-square bg-gradient-to-br from-lilac-light/40 to-purple-main/10 rounded-lg flex items-center justify-center overflow-hidden">
+            <img src="${img}" alt="Projeto ${i+1}" class="object-cover w-full h-full" />
+          </div>
+        `).join('');
+        return `
+          <div class="group hover:shadow-xl transition-all duration-300 bg-white/70 backdrop-blur-sm border border-lilac-light/40 hover:border-purple-main/30 rounded-lg" style="animation-delay: ${index * 0.1}s">
+            <div class="p-8">
+              <div class="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-lilac-light to-purple-main/20 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                ${service.icon}
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-3 font-poppins group-hover:text-purple-main transition-colors">
+                ${service.title}
+              </h3>
+              <p class="text-gray-600 mb-6 font-poppins font-light leading-relaxed">
+                ${service.description}
+              </p>
+              <div class="space-y-4">
+                <div class="bg-gradient-to-r from-lilac-light/20 to-purple-main/5 rounded-lg p-4">
+                  <h4 class="text-sm font-medium text-purple-main mb-3 font-poppins">
+                    Portfólio - ${service.title}
+                  </h4>
+                  <div class="grid grid-cols-2 gap-2 mb-3">
+                    ${thumbs}
+                  </div>
+                </div>
+                <button 
+                  class="inline-flex items-center text-purple-main hover:text-purple-dark font-poppins font-medium text-sm transition-colors group w-full justify-center py-2 px-4 bg-purple-main/10 hover:bg-purple-main/20 rounded-lg"
+                  onclick="openGalleryModal(${index})"
+                  type="button"
+                >
+                  Ver todos os projetos
+                  <span class="ml-2 group-hover:translate-x-1 transition-transform">🔍</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Modal gallery logic
+      let currentGallery = [];
+      let currentGalleryIndex = 0; // índice do primeiro da página
+      let currentServiceTitle = '';
+
+      function openGalleryModal(serviceIdx) {
+        currentGallery = services[serviceIdx].images;
+        currentGalleryIndex = 0;
+        currentServiceTitle = services[serviceIdx].title;
+        renderGalleryModal();
+        document.getElementById('gallery-modal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeGalleryModal() {
+        document.getElementById('gallery-modal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+
+      function prevGalleryImage() {
+        // Volta 3 imagens
+        currentGalleryIndex = (currentGalleryIndex - 3 + currentGallery.length) % currentGallery.length;
+        renderGalleryModal('left');
+      }
+
+      function nextGalleryImage() {
+        // Avança 3 imagens
+        currentGalleryIndex = (currentGalleryIndex + 3) % currentGallery.length;
+        renderGalleryModal('right');
+      }
+
+      function renderGalleryModal(direction = null) {
+        const modalImgs = document.getElementById('gallery-modal-imgs');
+        const modalTitle = document.getElementById('gallery-modal-title');
+        const modalCount = document.getElementById('gallery-modal-count');
+        if (modalImgs && modalTitle && modalCount) {
+          // Sem animações, troca direta
+          updateGalleryImgs(modalImgs);
+          modalTitle.textContent = currentServiceTitle;
+          // Exibe o range atual
+          let start = currentGalleryIndex + 1;
+          let end = ((currentGalleryIndex + 3) > currentGallery.length) ? currentGallery.length : (currentGalleryIndex + 3);
+          modalCount.textContent = `${start} - ${end} / ${currentGallery.length}`;
+        }
+      }
+
+      function updateGalleryImgs(modalImgs) {
+        let imgsHtml = '';
+        for (let i = 0; i < 3; i++) {
+          const idx = (currentGalleryIndex + i) % currentGallery.length;
+          imgsHtml += `
+            <div class="relative group">
+              <img src="${currentGallery[idx]}" alt="Projeto ${idx+1}" class="max-h-[50vh] max-w-[350px] rounded-lg object-contain border border-lilac-light shadow-lg transition duration-300 bg-white" />
+              <button onclick="ampliarImagemModal('${currentGallery[idx]}')" class="absolute bottom-2 right-2 bg-purple-main text-white rounded-full w-9 h-9 flex items-center justify-center shadow-lg opacity-80 hover:opacity-100 transition group-hover:scale-110" title="Ampliar imagem">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              </button>
+            </div>
+          `;
+        }
+        modalImgs.innerHTML = imgsHtml;
+      }
+
+      // Função para ampliar imagem em tela cheia
+      function ampliarImagemModal(imgSrc) {
+        // Cria overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-sm';
+        overlay.style.cursor = 'zoom-out';
+        overlay.onclick = (e) => { if (e.target === overlay) document.body.removeChild(overlay); };
+
+        // Botão X para fechar
+        const btnClose = document.createElement('button');
+        btnClose.innerHTML = '&times;';
+        btnClose.setAttribute('aria-label', 'Fechar');
+        btnClose.className = 'absolute top-6 right-8 text-white text-4xl font-bold hover:text-purple-main z-20';
+        btnClose.style.cursor = 'pointer';
+        btnClose.onclick = (e) => {
+          e.stopPropagation();
+          document.body.removeChild(overlay);
+        };
+
+        // Cria imagem ampliada
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = 'Imagem ampliada';
+        img.className = 'max-h-[90vh] max-w-[90vw] rounded-lg shadow-2xl border-4 border-white transition-transform duration-200';
+
+        // Nenhum comportamento de zoom ou arrastar
+
+
+        // Botão anterior (estilo igual ao carrossel principal, agora ainda mais próximo da imagem)
+        const btnPrev = document.createElement('button');
+        btnPrev.innerHTML = `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>`;
+        btnPrev.className = 'absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-purple-main/20 text-purple-main rounded-full p-2 shadow transition z-10 focus:outline-none focus:ring-2 focus:ring-purple-main ml-[300px]';
+        btnPrev.style.cursor = 'pointer';
+        btnPrev.onclick = (e) => {
+          e.stopPropagation();
+          navegarZoomImagem(-1, imgSrc, overlay);
+        };
+
+        // Botão próximo (estilo igual ao carrossel principal, agora ainda mais próximo da imagem)
+        const btnNext = document.createElement('button');
+        btnNext.innerHTML = `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+        btnNext.className = 'absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-purple-main/20 text-purple-main rounded-full p-2 shadow transition z-10 focus:outline-none focus:ring-2 focus:ring-purple-main mr-[300px]';
+        btnNext.style.cursor = 'pointer';
+        btnNext.onclick = (e) => {
+          e.stopPropagation();
+          navegarZoomImagem(1, imgSrc, overlay);
+        };
+
+        // Container relativo para posicionar setas
+        const container = document.createElement('div');
+        container.className = 'relative flex items-center justify-center w-full h-full';
+        container.appendChild(btnPrev);
+        container.appendChild(img);
+        container.appendChild(btnNext);
+
+        overlay.appendChild(container);
+        overlay.appendChild(btnClose);
+        document.body.appendChild(overlay);
+
+        // Fecha com ESC
+        function escListener(e) {
+          if (e.key === 'Escape') {
+            if (document.body.contains(overlay)) document.body.removeChild(overlay);
+            document.removeEventListener('keydown', escListener);
+          }
+        }
+        setTimeout(() => document.addEventListener('keydown', escListener), 0);
+      }
+
+      // Função para navegar entre imagens no zoom
+      function navegarZoomImagem(direcao, imgSrc, overlay) {
+        if (!currentGallery || !currentGallery.length) return;
+        let idx = currentGallery.indexOf(imgSrc);
+        if (idx === -1) idx = 0;
+        let novoIdx = (idx + direcao + currentGallery.length) % currentGallery.length;
+        // Substitui apenas a imagem ampliada
+        const img = overlay.querySelector('img');
+        img.src = currentGallery[novoIdx];
+        img.alt = 'Imagem ampliada';
+        // Resetar zoom e posição ao trocar de imagem
+        img.style.transform = '';
+        if (img._zoomState) {
+          img._zoomState.scale = 1;
+          img._zoomState.translateX = 0;
+          img._zoomState.translateY = 0;
+        }
+        // Atualiza eventos das setas
+        const btnPrev = overlay.querySelector('button');
+        const btnNext = overlay.querySelectorAll('button')[1];
+        btnPrev.onclick = (e) => { e.stopPropagation(); navegarZoomImagem(-1, currentGallery[novoIdx], overlay); };
+        btnNext.onclick = (e) => { e.stopPropagation(); navegarZoomImagem(1, currentGallery[novoIdx], overlay); };
+      }
+
+      // Populate services on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        const servicesGrid = document.getElementById('services-grid');
+        servicesGrid.innerHTML = services.map((service, index) => createServiceCard(service, index)).join('');
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Fecha modal ao clicar fora da imagem ou no X
+      window.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('gallery-modal');
+        if (modal) {
+          modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeGalleryModal();
+          });
+        }
+      });
+    </script>
+
+  </body>
+</html>
